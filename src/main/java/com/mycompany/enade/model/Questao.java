@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author GOKU-Ultrabook
+ * @author Octávio
  */
 @Entity
 @Table(name = "questao")
@@ -48,8 +48,7 @@ public class Questao implements Serializable {
     @Column(name = "idQuestao")
     private Integer idQuestao;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "descricaoQuestao")
     private String descricaoQuestao;
     @Size(max = 45)
@@ -70,11 +69,11 @@ public class Questao implements Serializable {
     @Column(name = "questaoCorreta")
     private Character questaoCorreta;
     @Column(name = "estadoQuestao")
-    private Short estadoQuestao;
+    private boolean estadoQuestao;
     @ManyToMany(mappedBy = "questaoList")
     private List<Prova> provaList;
     @JoinColumn(name = "TipoQuestao_idTipoQuestao", referencedColumnName = "idTipoQuestao")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Tipoquestao tipoQuestaoidTipoQuestao;
 
     public Questao() {
@@ -153,11 +152,11 @@ public class Questao implements Serializable {
         this.questaoCorreta = questaoCorreta;
     }
 
-    public Short getEstadoQuestao() {
+    public boolean getEstadoQuestao() {
         return estadoQuestao;
     }
 
-    public void setEstadoQuestao(Short estadoQuestao) {
+    public void setEstadoQuestao(boolean estadoQuestao) {
         this.estadoQuestao = estadoQuestao;
     }
 

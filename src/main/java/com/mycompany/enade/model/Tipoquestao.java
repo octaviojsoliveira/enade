@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author GOKU-Ultrabook
+ * @author octavio
  */
 @Entity
 @Table(name = "tipoquestao")

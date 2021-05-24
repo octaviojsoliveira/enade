@@ -30,13 +30,13 @@ public class UsuarioController implements Serializable {
         usuario = new Usuario();
     }
 
-    public void gravar(ActionEvent actionEvent) {
+    public void gravar() {
         UsuarioDAO.getInstance().merge(usuario);
         usuarios = UsuarioDAO.getInstance().buscarTodos();
         usuario = new Usuario();
     }
     
-    public void remover(ActionEvent actionEvent) {
+    public void remover() {
         UsuarioDAO.getInstance().remover(usuario.getIdUsuario());
         usuarios = UsuarioDAO.getInstance().buscarTodos();
         usuario = new Usuario();

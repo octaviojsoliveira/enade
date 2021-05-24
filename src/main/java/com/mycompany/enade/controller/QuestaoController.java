@@ -11,8 +11,12 @@ import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 
 /**
@@ -31,13 +35,13 @@ public class QuestaoController implements Serializable {
         questao = new Questao();
     }
 
-    public void gravar(ActionEvent actionEvent) {
+    public void gravar() {
         QuestaoDAO.getInstance().merge(questao);
         questoes = QuestaoDAO.getInstance().buscarTodos();
         questao = new Questao();
     }
     
-    public void remover(ActionEvent actionEvent) {
+    public void remover() {
         QuestaoDAO.getInstance().remover(questao.getIdQuestao());
         questoes = QuestaoDAO.getInstance().buscarTodos();
         questao = new Questao();
@@ -59,6 +63,19 @@ public class QuestaoController implements Serializable {
         this.questoes = questoes;
     }
     
-    
-    
+    public void onRowEdit(RowEditEvent event) {
+        Questao q = (Questao) event.getObject();
+        QuestaoDAO.getInstance().merge(q);
+        questoes = QuestaoDAO.getInstance().buscarTodos();
+        questao = new Questao();
+        FacesMessage msg = new FacesMessage("Editado",q.getIdQuestao().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent<Questao> event) {
+        FacesMessage msg = new FacesMessage("Cancelado", event.getObject().getIdQuestao().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
 }
+    
